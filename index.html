@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tactical Chess Analyzer | تحلیلگر تاکتیکی شطرنج</title>
+    
+    <!-- فونت‌های مدرن و زیبا -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,800;1,600&family=Space+Mono:wght@400;700&family=Vazirmatn:wght@300;400;700;900&family=Lalezar&display=swap" rel="stylesheet">
+    
+    <!-- استایل‌های صفحه شطرنج -->
+    <link rel="stylesheet" href="https://unpkg.com/@chrisoakman/chessboardjs@1.0.0/dist/chessboard-1.0.0.min.css">
+    
+    <!-- استایل اختصاصی سایت -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- هدر کاغذی -->
+    <header class="paper-header">
+        <div class="header-content">
+            <h1>Tactical Chess Analyzer</h1>
+            <p class="subtitle">سیستم تحلیل و پیشنهاد حرکت تاکتیکی</p>
+        </div>
+        <button id="helpBtn" class="stamp-btn">راهنمای اتصال به سایت هدف</button>
+    </header>
+
+    <main class="workspace">
+        <!-- ستون سمت راست: تخته شطرنج و تحلیل -->
+        <section class="panel board-panel">
+            <div class="ai-display">
+                <span class="ai-label">حرکت پیشنهادی (SAN)</span>
+                <span id="bestMoveText" class="ai-move">-</span>
+                <span id="aiStatus" class="ai-status">آماده به کار</span>
+            </div>
+            
+            <div id="myBoard" class="chessboard-container"></div>
+            
+            <div class="controls">
+                <button id="newGameBtn" class="action-btn">بازی جدید</button>
+                <button id="undoBtn" class="action-btn">بازگشت حرکت</button>
+                <button id="flipBtn" class="action-btn">چرخش صفحه</button>
+                <button id="analyzeBtn" class="action-btn primary">تحلیل عمیق</button>
+            </div>
+        </section>
+
+        <!-- ستون سمت چپ: سایت حریف (Iframe) -->
+        <section class="panel target-panel">
+            <div class="url-input-group">
+                <input type="url" id="targetUrl" placeholder="آدرس سایت شطرنج را وارد کنید (https://...)" dir="ltr">
+                <button id="loadUrlBtn" class="action-btn primary">اتصال</button>
+            </div>
+            
+            <div class="iframe-container" id="iframeWrapper">
+                <div class="placeholder-msg" id="iframePlaceholder">
+                    <p>برای بارگذاری سایت، آدرس را وارد کرده و دکمه اتصال را بزنید.</p>
+                    <p class="tiny-note">در صورت مسدود بودن Iframe، از دکمه راهنما در بالای صفحه استفاده کنید.</p>
+                </div>
+                <iframe id="targetFrame" src="about:blank" style="display: none;"></iframe>
+            </div>
+        </section>
+    </main>
+
+    <!-- مودال آموزش و راهنما -->
+    <div class="modal-overlay" id="tutorialModal">
+        <div class="modal-content paper-card">
+            <span class="close-modal" id="closeModalBtn">&times;</span>
+            <h2>راهنمای اتصال و اجرا</h2>
+            <p>به دلیل سیاست‌های امنیتی مرورگرها (CORS و X-Frame-Options)، بسیاری از سایت‌ها اجازه بارگذاری درون این صفحه (Iframe) را نمی‌دهند. برای استفاده همزمان از این تحلیلگر و سایت هدف، روش‌های زیر را بسته به دستگاه خود دنبال کنید:</p>
+            
+            <div class="tutorial-section">
+                <h3>💻 سیستم‌های دسکتاپ (ویندوز / مک / لینوکس)</h3>
+                <ul>
+                    <li>روش ۱ (توصیه شده): پنجره مرورگر را روی حالت <strong>Split Screen</strong> قرار دهید. در ویندوز با فشردن کلید <code>Win + ←</code> و <code>Win + →</code> و در مک با استفاده از قابلیت Split View.</li>
+                    <li>روش ۲: این صفحه را در یک تب و سایت شطرنج را در تب دیگر باز کنید و با کلیدهای <code>Alt + Tab</code> بین آن‌ها جابجا شوید.</li>
+                    <li>روش ۳: سایت شطرنج را در حالت <strong>Picture-in-Picture</strong> (تصویر در تصویر) قرار دهید (در کروم روی آیکون آن در نوار آدرس کلیک کنید).</li>
+                </ul>
+            </div>
+
+            <div class="tutorial-section">
+                <h3>📱 دستگاه‌های اندروید</h3>
+                <ul>
+                    <li>مرورگر کروم یا سامسونگ اینترنت را باز کنید.</li>
+                    <li>سایت شطرنج را در یک تب و این تحلیلگر را در تب دیگر باز کنید.</li>
+                    <li>برای اسپلیت اسکرین: دکمه Recent Apps را بزنید، روی آیکون اپ کلیک کرده و گزینه <strong>Split Screen</strong> را انتخاب کنید. سپس تحلیلگر را در نیمه دیگر قرار دهید.</li>
+                    <li>روش جایگزین: از قابلیت <strong>Floating Window</strong> (پنجره شناور) در گوشی‌های سامسونگ یا شیائومی استفاده کنید.</li>
+                </ul>
+            </div>
+
+            <div class="tutorial-section">
+                <h3>🍏 دستگاه‌های iOS (آیفون / آیپد)</h3>
+                <ul>
+                    <li><strong>آیپد:</strong> از قابلیت Split View استفاده کنید (Safari را در یک سمت و تحلیلگر را در سمت دیگر بکشید).</li>
+                    <li><strong>آیفون:</strong> مرورگر Safari را باز کنید. سایت شطرنج را باز کرده و ویدیو یا صفحه را در حالت <strong>Picture-in-Picture (PiP)</strong> قرار دهید. سپس به این صفحه بازگردید.</li>
+                    <li>یا از اپلیکیشن‌های مرورگر شناور (Floating Browser) استفاده کنید.</li>
+                </ul>
+            </div>
+            
+            <button class="action-btn primary" id="modalOkBtn">متوجه شدم</button>
+        </div>
+    </div>
+
+    <!-- اسکریپت‌های کتابخانه شطرنج -->
+    <script src="https://unpkg.com/@chrisoakman/chessboardjs@1.0.0/dist/chessboard-1.0.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chess.js/0.10.3/chess.min.js"></script>
+    
+    <!-- اسکریپت اختصاصی -->
+    <script src="script.js"></script>
+</body>
+                                                                                                   </html>
