@@ -1,0 +1,328 @@
+:root {
+    --paper-bg: #f4f1ea;
+    --paper-dark: #e8e4d9;
+    --ink: #2c2c2c;
+    --ink-light: #5a5a5a;
+    --accent: #8b3a3a; /* قرمز آجری کلاسیک */
+    --accent-hover: #6b2a2a;
+    --border-dashed: 1px dashed #a09d96;
+    --shadow-soft: 4px 4px 0px rgba(44, 44, 44, 0.08);
+    --font-fa: 'Vazirmatn', sans-serif;
+    --font-en: 'Playfair Display', serif;
+    --font-code: 'Space Mono', monospace;
+    --font-display: 'Lalezar', cursive;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: var(--paper-bg);
+    background-image: 
+        linear-gradient(rgba(255,255,255,0.4) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.4) 1px, transparent 1px);
+    background-size: 20px 20px;
+    color: var(--ink);
+    font-family: var(--font-fa);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* هدر */
+.paper-header {
+    background-color: var(--paper-bg);
+    border-bottom: 2px solid var(--ink);
+    padding: 15px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+
+.header-content h1 {
+    font-family: var(--font-en);
+    font-size: 28px;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+}
+
+.subtitle {
+    font-size: 13px;
+    color: var(--ink-light);
+    margin-top: 4px;
+}
+
+/* دکمه‌های مهرمانند */
+.stamp-btn, .action-btn {
+    background: transparent;
+    border: 1.5px solid var(--ink);
+    color: var(--ink);
+    padding: 8px 16px;
+    font-family: var(--font-fa);
+    font-weight: 700;
+    font-size: 13px;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: all 0.2s;
+    box-shadow: 2px 2px 0px var(--ink);
+}
+
+.stamp-btn:hover, .action-btn:hover {
+    transform: translate(-1px, -1px);
+    box-shadow: 3px 3px 0px var(--ink);
+}
+
+.action-btn.primary {
+    background-color: var(--accent);
+    color: #fff;
+    border-color: var(--accent);
+    box-shadow: 2px 2px 0px var(--ink);
+}
+
+.action-btn.primary:hover {
+    background-color: var(--accent-hover);
+}
+
+/* شبکه اصلی */
+.workspace {
+    display: flex;
+    flex: 1;
+    padding: 20px;
+    gap: 20px;
+    max-width: 1600px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+.panel {
+    background: #fff;
+    border: 1px solid var(--border-dashed);
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: var(--shadow-soft);
+    position: relative;
+}
+
+/* پنل شطرنج */
+.board-panel {
+    flex: 1;
+    max-width: 550px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.ai-display {
+    background-color: var(--paper-dark);
+    border: 1px solid #ccc;
+    padding: 15px;
+    text-align: center;
+    border-radius: 6px;
+    border-bottom: 3px solid var(--accent);
+    position: relative;
+}
+
+.ai-label {
+    display: block;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--ink-light);
+    font-family: var(--font-en);
+    font-weight: 600;
+}
+
+.ai-move {
+    display: block;
+    font-family: var(--font-code);
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--accent);
+    margin: 5px 0;
+}
+
+.ai-status {
+    display: block;
+    font-size: 12px;
+    color: var(--ink-light);
+}
+
+.chessboard-container {
+    width: 100%;
+    max-width: 450px;
+    margin: 0 auto;
+    border: 4px solid var(--ink);
+    box-shadow: 4px 4px 0 rgba(0,0,0,0.1);
+}
+
+.controls {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+/* پنل هدف */
+.target-panel {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.url-input-group {
+    display: flex;
+    gap: 10px;
+}
+
+.url-input-group input {
+    flex: 1;
+    padding: 10px 15px;
+    border: 1px solid var(--ink-light);
+    border-radius: 4px;
+    font-family: var(--font-code);
+    font-size: 13px;
+    background-color: var(--paper-bg);
+}
+
+.url-input-group input:focus {
+    outline: 2px solid var(--accent);
+}
+
+.iframe-container {
+    flex: 1;
+    border: 2px solid var(--ink);
+    border-radius: 6px;
+    background-color: var(--paper-dark);
+    position: relative;
+    overflow: hidden;
+    min-height: 500px;
+}
+
+.placeholder-msg {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: var(--ink-light);
+    width: 80%;
+}
+
+.tiny-note {
+    font-size: 11px;
+    margin-top: 10px;
+    opacity: 0.7;
+}
+
+#targetFrame {
+    width: 100%;
+    height: 100%;
+    border: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+/* مودال */
+.modal-overlay {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(44, 44, 44, 0.6);
+    backdrop-filter: blur(4px);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    padding: 20px;
+}
+
+.modal-overlay.active {
+    display: flex;
+}
+
+.paper-card {
+    background: var(--paper-bg);
+    border: 2px solid var(--ink);
+    padding: 30px;
+    border-radius: 8px;
+    max-width: 700px;
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 8px 8px 0 rgba(0,0,0,0.2);
+    position: relative;
+}
+
+.close-modal {
+    position: absolute;
+    top: 15px;
+    left: 20px;
+    font-size: 28px;
+    cursor: pointer;
+    font-family: var(--font-en);
+    font-weight: bold;
+}
+
+.paper-card h2 {
+    font-family: var(--font-en);
+    font-size: 24px;
+    margin-bottom: 15px;
+    border-bottom: 2px solid var(--accent);
+    padding-bottom: 10px;
+    display: inline-block;
+}
+
+.tutorial-section {
+    margin: 20px 0;
+    background: #fff;
+    padding: 15px;
+    border-left: 4px solid var(--accent);
+    border-radius: 4px;
+}
+
+.tutorial-section h3 {
+    font-size: 16px;
+    margin-bottom: 10px;
+    color: var(--accent);
+}
+
+.tutorial-section ul {
+    padding-right: 20px;
+    font-size: 14px;
+    line-height: 1.8;
+    color: var(--ink-light);
+}
+
+.tutorial-section code {
+    background: var(--paper-dark);
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-family: var(--font-code);
+    font-size: 12px;
+    color: var(--accent);
+}
+
+#modalOkBtn {
+    margin-top: 20px;
+    width: 100%;
+}
+
+/* رسپانسیو */
+@media (max-width: 900px) {
+    .workspace {
+        flex-direction: column;
+    }
+    .board-panel {
+        max-width: 100%;
+    }
+    .paper-header {
+        flex-direction: column;
+        text-align: center;
+        gap: 15px;
+    }
+}
